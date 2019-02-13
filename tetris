@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>俄罗斯方块</title>
+    <script  src="https://cdn.bootcss.com/vue/2.5.13/vue.js"></script>
+    <style>
+        #app{display:flex;flex-flow:column;justify-content:center;align-items: center}
+    </style>
+
+</head>
+<body>
+<div id="app">
+    <img src='data:image/jpeg;base64,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AAAAAAAAAAAAAABTY2wgVW50RiNQcmNAWQAAAAAAAAAAABBjcm9wV2hlblByaW50aW5nYm9vbAAAAAAOY3JvcFJlY3RCb3R0b21sb25nAAAAAAAAAAxjcm9wUmVjdExlZnRsb25nAAAAAAAAAA1jcm9wUmVjdFJpZ2h0bG9uZwAAAAAAAAALY3JvcFJlY3RUb3Bsb25nAAAAAAA4QklNA+0AAAAAABABjD1xAAIAAgGMPXEAAgACOEJJTQQmAAAAAAAOAAAAAAAAAAAAAD+AAAA4QklNBA0AAAAAAAQAAAAeOEJJTQQZAAAAAAAEAAAAHjhCSU0D8wAAAAAACQAAAAAAAAAAAQA4QklNJxAAAAAAAAoAAQAAAAAAAAACOEJJTQP1AAAAAABIAC9mZgABAGxmZgAGAAAAAAABAC9mZgABAKGZmgAGAAAAAAABADIAAAABAFoAAAAGAAAAAAABADUAAAABAC0AAAAGAAAAAAABOEJJTQP4AAAAAABwAAD/////////////////////////////A+gAAAAA/////////////////////////////wPoAAAAAP////////////////////////////8D6AAAAAD/////////////////////////////A+gAADhCSU0EAAAAAAAAAgAAOEJJTQQCAAAAAAACAAA4QklNBDAAAAAAAAEBADhCSU0ELQAAAAAABgABAAAABjhCSU0ECAAAAAAAEAAAAAEAAAJAAAACQAAAAAA4QklNBB4AAAAAAAQAAAAAOEJJTQQaAAAAAAM9AAAABgAAAAAAAAAAAAAALgAAAGQAAAAEAHQAaQBtAGcAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAGQAAAAuAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAEAAAAAAABudWxsAAAAAgAAAAZib3VuZHNPYmpjAAAAAQAAAAAAAFJjdDEAAAAEAAAAAFRvcCBsb25nAAAAAAAAAABMZWZ0bG9uZwAAAAAAAAAAQnRvbWxvbmcAAAAuAAAAAFJnaHRsb25nAAAAZAAAAAZzbGljZXNWbExzAAAAAU9iamMAAAABAAAAAAAFc2xpY2UAAAASAAAAB3NsaWNlSURsb25nAAAAAAAAAAdncm91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cmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOkRvY3VtZW50SUQ9IkU5M0Q1NTlDN0RGRDlFQzA4NkU1NTc0QjBBNENDMjlGIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjAyZjBkMDQ5LWI1YmMtZTc0MS1iMzg5LTQ3MTY1MDI1NTZiNiIgeG1wTU06T3JpZ2luYWxEb2N1bWVudElEPSJFOTNENTU5QzdERkQ5RUMwODZFNTU3NEIwQTRDQzI5RiIgZGM6Zm9ybWF0PSJpbWFnZS9qcGVnIiBwaG90b3Nob3A6Q29sb3JNb2RlPSIzIiBwaG90b3Nob3A6SUNDUHJvZmlsZT0iIiB4bXA6Q3JlYXRlRGF0ZT0iMjAxOC0wNS0wOVQxNDowMDozOSswODowMCIgeG1wOk1vZGlmeURhdGU9IjIwMTgtMDUtMDlUMTQ6NDA6MzgrMDg6MDAiIHhtcDpNZXRhZGF0YURhdGU9IjIwMTgtMDUtMDlUMTQ6NDA6MzgrMDg6MDAiPiA8eG1wTU06SGlzdG9yeT4gPHJkZjpTZXE+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJzYXZlZCIgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDowMmYwZDA0OS1iNWJjLWU3NDEtYjM4OS00NzE2NTAyNTU2YjYiIHN0RXZ0OndoZW49IjIwMTgtMDUtMDlUMTQ6NDA6MzgrMDg6MDAiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE1LjUgKFdpbmRvd3MpIiBzdEV2dDpjaGFuZ2VkPSIvIi8+IDwvcmRmOlNlcT4gPC94bXBNTTpIaXN0b3J5PiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg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'/>
+    <table cellspacing="1" style="margin:auto;" >
+        <tr v-for="v of datalist">
+            <td v-for="v1 of v" :style="{background:v1!=1?'#adccfe':'#333',width:'30px',height:'30px'}"></td>
+        </tr>
+    </table>
+</div>
+<script>
+    let alllist=[
+      [0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0]
+    ]
+    new Vue({
+        methods:{
+            direction(e){
+                if(e.keyCode==38){
+                    // 变形
+                    if((this.type==0)||(this.f!=0)){
+                        return
+                    }
+                    else if((this.type==1)||(this.type==2)){
+                        this.length=2
+                    }else {
+                        this.length=4
+                    }
+                    this.changedata=1
+                }else if(e.keyCode==37){
+                    // 左移
+                    if(this.changedata==1){return;}
+                    this.f=-1
+                }else if(e.keyCode==39){
+                    // 右移
+                    if(this.changedata==1){return;}
+                    this.f=1
+                }else if(e.keyCode==40){
+                    // 下移
+                    // this.product()
+                }
+            },
+            // 生成图像
+            product(){
+                let c=0
+                let _this=this
+                if(this.datalist[0].indexOf(1)!=-1){alert('game over');return}else {}
+                this.type=Math.floor(5*Math.random())
+                this.smalltype=0
+                if(this.type!=0){smalltype=Math.floor(this.alltypelist[this.type].length*Math.random())}
+                this.typelist=JSON.parse(JSON.stringify([this.alltypelist[this.type][this.smalltype]]))
+                let t=this.typelist[0]
+                let all=function () {
+                    let all=0
+                    for(let i=0;i<19;i++){
+                        eval('all+=(alllist['+i+'].reduce((x,y)=>x+y))')
+                    }
+                    t.forEach((v)=>{all+=v.length})
+                    return all
+
+                }
+                let all1=function () {
+                    let all=0
+                    for(let i=0;i<19;i++){
+                        eval('all+=(alllist['+i+'].reduce((x,y)=>x+y))')
+                    }
+                    return all
+                }
+                function move() {
+                    for(let i=(t.length-1);i>=0;i--){
+                        let index=c+i
+                        eval('alllist['+index+'].splice(t['+i+'].start,t['+i+'].length,'+new Array(t[i].length).fill(1).join()+')')
+                        _this.datalist=JSON.parse(JSON.stringify(alllist))
+                    }
+                }
+                function pushback() {
+                    for(let i=(t.length-1);i>=0;i--){
+                        let index=c+i-1
+                        eval('alllist['+index+'].splice(t['+i+'].start,t['+i+'].length,'+new Array(t[i].length).fill(1).join()+')')
+                    };
+                }
+                function del() {
+                    for(let [k,v] of alllist.entries()){
+                        if(v.indexOf(0)==-1){
+                            alllist.splice(k,1)
+                            alllist.splice(0,0,[0,0,0,0,0,0,0,0,0,0,0,0])
+                        }
+                    }
+                    _this.datalist=JSON.parse(JSON.stringify(alllist))
+                }
+                function judge() {
+                    let array=JSON.parse(JSON.stringify(alllist))
+                    for(let i=(t.length-1);i>=0;i--){
+                        let index=c+i
+                        eval('alllist['+index+'].splice(t['+i+'].start,t['+i+'].length,'+new Array(t[i].length).fill(1).join()+')')
+                    }
+                    if (all1()!=allcount){
+                        console.log('all1:',all1(),'allcount:',allcount)
+                        alllist=JSON.parse(JSON.stringify(array))
+                        pushback()
+                        _this.datalist=JSON.parse(JSON.stringify(alllist))
+                        clearInterval(timer)
+                        if(_this.datalist[0].indexOf(1)==-1){
+                            _this.product()
+                        }else alert('Game Over')
+                        return;
+                    }else {
+                        alllist=JSON.parse(JSON.stringify(array))
+                    }
+                }
+                del()
+                let allcount=all()
+                this.movelength=0
+                let timer=setInterval(function () {
+                    move()
+                    setTimeout(function () {
+                        if((t.length+c)==19){clearInterval(timer);_this.product();return;}
+                        for(let i=(t.length-1);i>=0;i--){
+                            let index=c+i
+                            eval('alllist['+index+'].splice(t['+i+'].start,t['+i+'].length,'+new Array(t[i].length).fill(0).join()+')')
+                        }
+                        c++
+                        _this.datalist=JSON.parse(JSON.stringify(alllist))
+                        let tt=JSON.parse(JSON.stringify(t))
+
+                        // 左右移动
+                        if(_this.f==1){
+                            if(t.every((v)=>(v.start+v.length)!=12)){
+                                for (let v of t){
+                                    v.start+=1
+                                }
+                            }
+                            _this.f=0
+                            _this.movelength++
+                        }else if(_this.f==-1){
+                            if(t.every((v)=>v.start!=0)){
+                                for (let v of t){
+                                    v.start-=1
+                                }
+                            }
+                            _this.f=0
+                            _this.movelength--
+                        }
+                        // 变形
+                        function transform() {
+                            if(_this.changedata!=0){
+                                _this.changedata=0;
+                                if(_this.smalltype<(_this.length-1)){
+                                    let t1=JSON.parse(JSON.stringify(t))
+                                    _this.smalltype++
+                                    t=JSON.parse(JSON.stringify(_this.alltypelist[_this.type][_this.smalltype]))
+
+                                    // 判断变形是否超出边界
+                                    let t2=JSON.parse(JSON.stringify(t))
+                                    let judge=0
+                                    for(let v of t2){
+                                        v.start+=_this.movelength
+                                        if(((v.start+v.length)>11)||(v.start<0)){judge=1;break}
+                                    }
+                                    if(judge==1){
+                                        t=t1
+                                        _this.smalltype--
+                                        return;
+                                    }
+
+                                    for(let v of t){
+                                        v.start+=_this.movelength
+                                    }
+                                }else {
+                                    let t1=JSON.parse(JSON.stringify(t))
+                                    _this.smalltype=0;
+                                    t=JSON.parse(JSON.stringify(_this.alltypelist[_this.type][_this.smalltype]))
+
+                                    // 判断变形是否超出边界
+                                    let t2=JSON.parse(JSON.stringify(t))
+                                    let judge=0
+                                    for(let v of t2){
+                                        v.start+=_this.movelength
+                                        if(((v.start+v.length)>11)||(v.start<0)){judge=1;break}
+                                    }
+                                    if(judge==1){
+                                        t=t1
+                                        _this.smalltype=_this.length-1
+                                        return;
+                                    }
+
+                                    for(let v of t){
+                                        v.start+=_this.movelength
+                                    }
+                                }
+                            }
+                        }
+                        transform()
+
+                        let array=JSON.parse(JSON.stringify(alllist))
+                        for(let i=(t.length-1);i>=0;i--){
+                            let index=c+i
+                            eval('alllist['+index+'].splice(t['+i+'].start,t['+i+'].length,'+new Array(t[i].length).fill(1).join()+')')
+                        }
+                        if (all1()!=allcount){
+                            console.log('方向修正')
+                            t=JSON.parse(JSON.stringify(tt))
+                        }
+                        alllist= array
+                        allcount=all()
+                        judge()
+                    },350)
+                },450)
+            }
+        },
+        data:{timer:null,type:null,datalist:JSON.parse(JSON.stringify(alllist)),f:0,changedata:0,alllistlength:alllist.length,length:1,smalltype:0,movelength:0,
+            typelist:null,alltypelist:[
+                [[{start:5,length:2},{start:5,length:2}]],//方块
+                [[{start:5,length:2},{start:4,length:2}],[{start:5,length:1},{start:5,length:2},{start:6,length:1}]],//z
+                [[{start:3,length:4}],[{start:5,length:1},{start:5,length:1},{start:5,length:1},{start:5,length:1}]],//string
+                [[{start:6,length:1},{start:5,length:3}],[{start:6,length:1},{start:5,length:2},{start:6,length:1}],[{start:5,length:3},{start:6,length:1}],[{start:6,length:1},{start:6,length:2},{start:6,length:1}]],//突
+                [[{start:7,length:1},{start:5,length:3}],[{start:6,length:2},{start:7,length:1},{start:7,length:1}],[{start:5,length:3},{start:7,length:1}],[{start:6,length:1},{start:6,length:1},{start:6,length:2}]],//L
+            ]
+            },
+        mounted(){
+            window.addEventListener('keydown',this.direction)
+              this.product()
+        }
+
+    }).$mount('#app')
+
+
+</script>
+</body>
+</html>
